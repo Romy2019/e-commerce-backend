@@ -1,7 +1,7 @@
 const jwt = require('jsonwebtoken');
 const TOKEN_SECRET = "D0dKsugPi5r}Viv";
 /* GET home page. */
-module.exports = function() {
+module.exports = function () {
     return (req, res, next) => {
         const header = req.headers['authorization'];
         if (typeof header !== 'undefined') {
@@ -14,20 +14,21 @@ module.exports = function() {
                 const decodedToken = jwt.verify(token,
                     TOKEN_SECRET);
                 console.log(decodedToken);
-                if (!decodedToken) res.sendStatus(401);
+                if (!decodedToken) return res.status(401).send({ message: "invalidToken", result: [] })
                 if (decodedToken) {
+                    req.user=decodedToken
                     next();
                 } else {
-                    res.sendStatus(401);
+                    return res.status(401).send({ message: "invalidToken", result: [] })
                 }
             } catch (err) {
                 console.log(err);
-                res.sendStatus(401);
+                return res.status(401).send({ message: err.message, result: [] })
             }
 
         } else {
             //If header is undefined return unAuthorized (401)
-            res.sendStatus(401);
+            return res.status(401).send({ message: "invalidHeader", result: [] })
         }
 
     };

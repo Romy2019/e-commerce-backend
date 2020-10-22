@@ -6,7 +6,10 @@ const productSchema = mongoose.Schema({
     count: { type: String},
     price: { type: String},
     category: { type: String},
-    image: {type: String},
+    image: { 
+        data: Buffer, 
+        contentType: String 
+     },
     description: { type: String },
    
 });

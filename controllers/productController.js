@@ -107,7 +107,6 @@ exports.removeProduct = function (req, res) {
                 }
                 if(success.deletedCount==1){
                 return res.status(200).send({ message: "product removed", result: success })
-                }
             })
 
         }

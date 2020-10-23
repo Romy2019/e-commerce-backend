@@ -9,8 +9,8 @@ const TOKEN_SECRET = "D0dKsugPi5r}Viv";
 const Bcrypt = require("bcryptjs");
 const { ExpectationFailed } = require('http-errors');
 
-function generateJWT(_id, email, role, username) {
-    const token = jwt.sign({ userId: _id, email: email, role: role, username: username }, TOKEN_SECRET);
+function generateJWT(_id, email, role, username,activeStatus) {
+    const token = jwt.sign({ userId: _id, email: email, role: role, username: username,activeStatus:activeStatus }, TOKEN_SECRET);
     return token;
 }
 
@@ -93,7 +93,7 @@ exports.logIn = async function (req, res) {
                 }
                 else {
                     if (Bcrypt.compareSync(userData.password, docs[0].password)/*docs[0].password === userlog.password*/) {
-                        const token = generateJWT(docs[0]._id, docs[0].email, docs[0].role, docs[0].userName);
+                        const token = generateJWT(docs[0]._id, docs[0].email, docs[0].role, docs[0].userName,docs[0].activeStatus);
                         let result = {
                             userName: userData.userName,
                             token: token

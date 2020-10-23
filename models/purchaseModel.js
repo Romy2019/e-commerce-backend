@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-const orderSchema = mongoose.Schema({
+const purchaseSchema = mongoose.Schema({
     customerId: { type: String },
     vendorId: { type: String},
     productId: { type: String},
@@ -11,4 +11,6 @@ const orderSchema = mongoose.Schema({
    
 });
 
-module.exports = mongoose.model('orders', orderSchema);
+
+var Purchase = mongoose.model('Purchases', purchaseSchema);
+module.exports = { Purchase };

@@ -26,14 +26,22 @@ var transporter = nodemailer.createTransport({
 exports.registerUser = async function (req, res) {
     try {
         var data = req.body
+
         if (!data.userName || !data.email) {
             return res.status(400).send({ message: "enter userName and email", result: [] })
         }
         if (!data.password) {
             data.password = Date.now()
         }
+        if(data.email){
+           var checkData= await userModel.Users.find({'email':data.email})
+           if(checkData.length>=1){
+            return res.status(400).send({ message: " email alredy exist", result: [] })
+           }
+        }
         if (data.password && data.userName && data.email) {
             var password = data.password
+           
             data.password = Bcrypt.hashSync(data.password, 10);
             const userAdd = new userModel.Users(data);
 
@@ -152,8 +160,10 @@ exports.editUser = async function (req, res) {
 
     try {
         var userData = req.body
+  
         if (userData) {
-           var editUser =await userModel.Users.update({_id: req.params.id },{userData}) 
+           var editUser =await userModel.Users.update({_id: req.params.id },{$set:userData}) 
+
            if (editUser.nModified==1){
             return res.status(200).send({ message: "edited user Data", result:editUser })  
            }

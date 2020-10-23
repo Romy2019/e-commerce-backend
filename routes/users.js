@@ -10,4 +10,5 @@ router.post('/register',userData.registerUser)
 router.post('/login',userData.logIn)
 router.get('/list',middleware(),userData.listUsers)
 router.delete('/deleteUser/:id',middleware(),userData.deleteUsers)
+router.put('/editUser/:id',middleware(),userData.editUser)
 module.exports = router;

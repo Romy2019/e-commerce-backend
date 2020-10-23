@@ -11,7 +11,9 @@ const productSchema = mongoose.Schema({
         contentType: String 
      },
     description: { type: String },
+    color:{ type: String },
+    size :{ type: String }
    
 });
-
-module.exports = mongoose.model('Products', productSchema);
+var Products = mongoose.model('Products', productSchema);
+module.exports = { Products };

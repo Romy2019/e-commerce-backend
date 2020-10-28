@@ -47,7 +47,7 @@ exports.registerUser = async function (req, res) {
 
             await userAdd.save(function (err, success) {
                 if (err) {
-                    res.status(400).send({ message: err, result: [] })
+                    res.status(400).send({ message: "existing data", result: [] })
                 } else {
                     var mailOptions = {
                         from: 'romy@ateamindia.com',
